@@ -8,6 +8,16 @@
       <h1>Vue Basics</h1>
     </section>
     <div>
+      <div class="totals">
+        <div class="totals-reaction">
+          <h2>🍺 Love</h2>
+          <span>{{ totalLoved }}</span>
+        </div>
+        <div class="totals-reaction">
+          <h2>🤮 Hate</h2>
+          <span>{{ totalHated }}</span>
+        </div>
+      </div>
       <div
         v-for="beer in beers" 
         :key="beer.id"
@@ -154,6 +164,17 @@ export default {
     ]
     }
   },
+  computed:{
+    totalReactions(){
+      return Object.values(this.reactions)
+    },
+    totalLoved(){
+      return this.totalReactions.filter(reaction => reaction === 'love').length  
+    },
+    totalHated(){
+      return this.totalReactions.filter(reaction => reaction === 'hate').length 
+    }
+  },
   methods:{
     runAction(beerId, name){
       if(this.reactions[beerId] === name) {
@@ -223,6 +244,16 @@ export default {
   background-color: #eee;
   padding: 0 8px;
   margin-left: 8px;
+}
+
+.totals{
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+}
+
+.totals-reaction{
+  padding: 12px;
 }
 
 </style>
