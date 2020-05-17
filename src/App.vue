@@ -7,6 +7,9 @@
       >
       <h1>Vue Basics</h1>
     </section>
+    <div>
+      <span>{{ message }}</span>
+    </div>
   </div>
 </template>
 
@@ -16,6 +19,11 @@ export default {
   name: 'App',
   components: {
   },
+  data(){
+    return {
+      message: 'Reactive message'
+    }
+  }
 }
 </script>
 
