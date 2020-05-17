@@ -8,17 +8,28 @@
       <h1>Vue Basics</h1>
     </section>
     <div>
-      <ul 
-        v-for="beer in beers"
+      <div
+        v-for="beer in beers" 
         :key="beer.id"
+        class="beers-list"
       >
-        <li>
-          <span>
-            <strong>{{ beer.name }}</strong>
-            - {{ beer.tagline }}
-          </span>
-        </li>
-      </ul>
+        <div class="beer-card">
+          <div class="beer-card-img-container">
+            <img
+              height="120px" 
+              :src="beer.image_url"
+            >
+          </div>
+          <div class="beer-card-body">
+            <div>
+              <strong>{{ beer.name }}</strong> 
+            </div>
+            <div>
+              <span class="beer-card-tagline">{{ beer.tagline }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -133,4 +144,49 @@ export default {
 .app-header h1 {
   margin: 0;
 }
+
+.beers-list{
+  max-width: 800px;
+}
+
+.beer-card{
+  display: flex;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.beer-card-body{
+  padding: 0 8px;
+}
+
+.beer-card-img-container{
+  min-width: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.beer-card-tagline{
+  font-size: 14px;
+  background-color: #eee;
+  padding: 0 8px;
+  margin-left: 8px;
+}
+
+.beer-card-actions{
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+}
+
+.beer-card-action{
+  cursor: pointer;
+  margin: 4px 0;
+  user-select:none;
+  text-align: right;
+}
+
 </style>
