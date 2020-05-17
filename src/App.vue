@@ -27,6 +27,14 @@
             <div>
               <span class="beer-card-tagline">{{ beer.tagline }}</span>
             </div>
+            <div>
+              <span v-if=" beer.description.length > MAX_CHARS">
+                {{ `${beer.description.substring(0,MAX_CHARS)}...` }}
+              </span>
+              <span v-else>
+                {{ beer.description }}
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -42,6 +50,7 @@ export default {
   },
   data(){
     return {
+      MAX_CHARS: 200,
       beers: [
         {
             "id":1,
