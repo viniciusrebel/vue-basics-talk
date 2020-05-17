@@ -41,23 +41,10 @@
               </span>
             </div>
           </div>
-          <div
-            class="beer-card-actions"
-          >
-            <template
-              v-for="(action, index) in actions"
-            >
-              <div
-                :key="index" 
-                class="beer-card-action"
-                @click="runAction(beer.id, action.name)"
-              >
-                <span :title="action.label">
-                  {{ action.emoji }}
-                </span>
-              </div>
-            </template>
-          </div>
+          <actions-list
+            :actions="actions"
+            @action-click="runAction(beer.id, $event)"
+          />
         </div>
       </div>
     </div>
@@ -65,10 +52,12 @@
 </template>
 
 <script>
+import ActionsList from './components/ActionsList'
 
 export default {
   name: 'App',
   components: {
+    ActionsList
   },
   data(){
     return {
@@ -186,7 +175,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   color: #2c3e50;
@@ -234,20 +223,6 @@ export default {
   background-color: #eee;
   padding: 0 8px;
   margin-left: 8px;
-}
-
-.beer-card-actions{
-  margin-left: auto;
-  display: flex;
-  flex-direction: column;
-  flex: 0 0 auto;
-}
-
-.beer-card-action{
-  cursor: pointer;
-  margin: 4px 0;
-  user-select:none;
-  text-align: right;
 }
 
 </style>
