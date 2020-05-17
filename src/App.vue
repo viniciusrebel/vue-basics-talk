@@ -13,7 +13,12 @@
         :key="beer.id"
         class="beers-list"
       >
-        <div class="beer-card">
+        <div
+          class="beer-card"
+          :style="{
+            'border-color': getBorderColor(beer.id)
+          }"
+        >
           <div class="beer-card-img-container">
             <img
               height="120px" 
@@ -36,6 +41,23 @@
               </span>
             </div>
           </div>
+          <div
+            class="beer-card-actions"
+          >
+            <template
+              v-for="(action, index) in actions"
+            >
+              <div
+                :key="index" 
+                class="beer-card-action"
+                @click="runAction(beer.id, action.name)"
+              >
+                <span :title="action.label">
+                  {{ action.emoji }}
+                </span>
+              </div>
+            </template>
+          </div>
         </div>
       </div>
     </div>
@@ -51,6 +73,18 @@ export default {
   data(){
     return {
       MAX_CHARS: 200,
+      reactions: {},
+      actions:[{
+        emoji: '🍺',
+        name: 'love',
+        label: 'Love it!'
+      },
+      {
+        emoji: '🤮',
+        name: 'hate',
+        label: 'Hate it!'
+      }
+      ],
       beers: [
         {
             "id":1,
@@ -129,6 +163,24 @@ export default {
             "contributed_by":"Sam Mason <samjbmason>"
         }
     ]
+    }
+  },
+  methods:{
+    runAction(beerId, name){
+      if(this.reactions[beerId] === name) {
+        this.reactions[beerId] = null
+        return
+      }
+      this.reactions = {
+        ...this.reactions,
+        [beerId]: name
+      }
+    },
+    getBorderColor(beerId){
+      const beerReaction = this.reactions[beerId]
+      if(!beerReaction) return '#eee'
+      const color = beerReaction === 'love' ? 'green' : 'red'
+      return color
     }
   }
 }
